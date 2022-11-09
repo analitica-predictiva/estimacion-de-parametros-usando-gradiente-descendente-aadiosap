@@ -16,7 +16,7 @@ def pregunta_01():
     import pandas as pd
 
     # Importe PolynomialFeatures
-    from Sklearn.preprocessing import PolynomialFeature
+    from sklearn.preprocessing import PolynomialFeature
 
     # Cargue el dataset `data.csv`
     data = pd.read_csv("data.csv")

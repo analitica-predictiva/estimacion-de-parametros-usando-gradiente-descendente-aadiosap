@@ -22,7 +22,7 @@ def pregunta_01():
     data = pd.read_csv("data.csv")
 
     # Cree un objeto de tipo `PolynomialFeatures` con grado `2`
-    poly = PolynomialFeatures(degree=2)
+    poly = PolynomialFeatures(degree=2,interaction_only=False,include_bias=True)
 
     # Transforme la columna `x` del dataset `data` usando el objeto `poly`
     x_poly = poly.fit_transform(data[["x"]])
@@ -45,17 +45,16 @@ def pregunta_02():
     # Defina el parámetro inicial `params` como un arreglo de tamaño 3 con ceros
     params = np.zeros(3)
     for _ in range(n_iterations):
-
         # Compute el pronóstico con los parámetros actuales
         y_pred = np.dot(x_poly, params)
-
+        
         # Calcule el error
-        error = [y_pred - yp for y_pred, yp in zip(y, y_pred)]
-
+        error = [y - y_pred for y, y_pred in zip(y, y_pred)]
+        
         # Calcule el gradiente
         gradient = -2 * np.sum(np.multiply(x_poly,np.array(error)[:, np.newaxis]), axis=0)
-
+        
         # Actualice los parámetros
         params = params - learning_rate * gradient
 
-    return np.array([0.666, -3.0, 2.032])
+    return params

@@ -47,18 +47,13 @@ def pregunta_02():
     for i in range(n_iterations):
 
         # Compute el pronóstico con los parámetros actuales
-        y_pred = np.sum(np.multiply(params, x_poly),axis=1)
+        y_pred = np.dot(x_poly, params)
 
         # Calcule el error
-        error = [y - y_pred for y, y_pred in zip(y, y_pred)]
+        error = [y_pred - yp for y_pred, yp in zip(y, y_pred)]
 
         # Calcule el gradiente
-        x_1 = [item[1] for item in x_poly.tolist()]
-        x_2 = [item[2] for item in x_poly.tolist()]
-        gradient_w0 = -2 * sum(error)
-        gradient_w1 = -2 * sum([error * x_1 for error, x_1 in zip(error, x_1)])
-        gradient_w2 = -4 * sum([error * x_2 for error, x_2 in zip(error, x_2)])
-        gradient = np.array([gradient_w0,gradient_w1,gradient_w2])
+        gradient = -2 * np.sum(np.multiply(x_poly,np.array(error)[:, np.newaxis]), axis=0)
 
         # Actualice los parámetros
         params = params - learning_rate * gradient

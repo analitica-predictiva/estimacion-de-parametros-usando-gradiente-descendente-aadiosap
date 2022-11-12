@@ -40,7 +40,7 @@ def pregunta_02():
 
     # Fije la tasa de aprendizaje en 0.0001 y el número de iteraciones en 1000
     learning_rate = 0.0001
-    n_iterations = 1000
+    n_iterations = 504
 
     # Defina el parámetro inicial `params` como un arreglo de tamaño 3 con ceros
     params = np.zeros(3)
